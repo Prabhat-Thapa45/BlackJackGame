@@ -1,0 +1,49 @@
+<h3>Place your deal</h3>
+<p>Your balance is ${{balance}}</p>
+
+{% if bet_amount > 20 %}
+    <p> Your bet amount is $ {{ bet_amount }}</p>
+
+    <table>
+        <th>Guest</th>
+        <th>Orchestrator</th>
+        <tr>
+            <td> {{cards[0]}} </td>
+            <td> {{cards[1]}} </td>
+            {% if another_card %}
+                <td> {{card[4]}} </td>
+            {% endif %}
+        </tr>
+        <tr>
+            <td> {{cards[2]}} </td>
+            {% if show %}
+                <td> {{cards[3]}} </td>
+            {% endif %}
+        </tr>
+        <tr>
+            <td>
+                <form method="post" action="{{url_for('board')}}">
+                    <input type="hidden" name="another_card" value="{{true}}">
+                    <button type="submit">Get another card</button>
+                </form>
+             </td>
+            <td>
+                <form method="post" action="{{url_for('board')}}">
+                    <input type="hidden" name="stand" value="{{true}}">
+                    <button type="submit">stand</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+{% else %}
+    Minimum bet amount is $20
+{% endif %}
+
+<form method="post" action="{{ url_for('manage_money') }}">
+    <input type="number" name="bet_amount">
+    <button type="submit" value="Submit">BET</button>
+</form>
+
+
+
+
